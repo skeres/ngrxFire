@@ -1,5 +1,25 @@
 <head><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"></head>
+<body>
 {{message$ | async }} 
 <br>
-<button type='button' class='btn btn-primary' (click)='spanishMessage()'>Espagnol</button>
-<button type='button' class='btn btn-success' (click)='frenchMessage()'>Français</button>
+
+
+<div *ngIf="post | async as p">
+
+
+<h2>{{p.text}}</h2>
+<h4> Votes : {{p.likes}}</h4>
+
+<br>
+<button (click)="upVote()"> plus </button>
+<button (click)="downVote()"> moins </button>
+<button (click)="resetPost()"> Reset</button>
+
+<input [(ngModel)]="text">
+<button (click)="editText()"> change text </button>
+
+
+</div>
+
+
+</body>

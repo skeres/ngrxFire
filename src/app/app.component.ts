@@ -3,8 +3,11 @@ import { Store} from '@ngrx/store'
 import { Observable } from 'rxjs'
 
 
+import { Post } from './post.model'
+import * as PosActions from './post.actions'
+
 interface AppState {
-  message : string;
+  post : Post;
 }
 
 @Component({
@@ -14,17 +17,31 @@ interface AppState {
 })
 export class AppComponent {
   title = 'ngrxFire';
-  message$: Observable<string>;
+  post : Observable<Post>;
+
+  public text : string; // for input values
 
   constructor(private store: Store<AppState>){
-    this.message$=this.store.select('message')
+    this.post=this.store.select('post')
   }
 
-  spanishMessage(){
-    this.store.dispatch({type:'SPANISH'})
+  editText(){
+    this.store.dispatch(new PosActions.EditText(this.text));
   }
 
-  frenchMessage(){
-    this.store.dispatch({type:'FRENCH'})
+  resetPost(){
+    this.store.dispatch( new PosActions.Reset())
   }
+
+
+  upVote() {
+    this.store.dispatch( new PosActions.UpVote())
+  }
+
+  downVote() {
+    this.store.dispatch(new PosActions.DownVote())
+  }
+
+
+
 }
